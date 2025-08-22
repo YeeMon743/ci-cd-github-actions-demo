@@ -74,3 +74,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Run tests with coverage
+        run: |
+          pytest --cov=hello --cov-report=term-missing
+          coverage html -d coverage_html
+          echo "## Coverage Report" >> $GITHUB_STEP_SUMMARY
+          coverage report >> $GITHUB_STEP_SUMMARY
